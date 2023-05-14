@@ -1,4 +1,3 @@
-import { boolean } from 'joi';
 import mongoose from 'mongoose';
 
 export interface ProductObj{
@@ -20,6 +19,14 @@ export interface Delivery{
     roomNumber:number;
     deliveryInstructions:string;
     isDelivered:boolean
+    deliveredAt:Date;
+}
+
+export interface ShippingDetails{
+    shipper:mongoose.Schema.Types.ObjectId;
+    deliveryAcceptedAt:Date;
+    opt:string;
+    optExpiration:Date
 }
 
 export interface OrderDocument extends mongoose.Document {
@@ -28,8 +35,11 @@ export interface OrderDocument extends mongoose.Document {
     instructions:string;
     priceDetails:PriceDetails;
     delivery:Delivery
+    shippingDetails:ShippingDetails;
     createdAt: Date;
     isActive:boolean;
+    isAccepted:boolean;
+    status:number
 }
 
 const orderSchema = new mongoose.Schema(
@@ -61,15 +71,35 @@ const orderSchema = new mongoose.Schema(
                 type:Boolean,
                 default:false
             },
+            deliveredAt:Date
+        },
+        shippingDetails:{
+            shipper:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'User'
+            },
+            deliveryAcceptedAt:Date,
+            opt:String,
+            optExpiration:Date
         },
         isActive:{
             type:Boolean,
             default:true
         },
+        isAccepted:{
+            type:Boolean,
+            default:false
+        },
+        status:{
+            type:Number,
+            enum:[-1,0,1,2,3],  // -1:notAccepted,  0: accepted, 1: pickedUp, 2:on the way, 3:delivered
+            default:-1
+        },
         createdAt:{
             type:Date,
             default:Date.now()
-        }
+        },
+        
     },
     {
         toJSON: { virtuals: true },

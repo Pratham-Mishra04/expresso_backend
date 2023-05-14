@@ -12,3 +12,13 @@ export const userOrderProtect = catchAsync(
         return next()
     }
 )
+
+export const shipperOrderProtect = catchAsync(
+    async (req: Request, res: Response, next: NextFunction) => {
+        const order = await Order.findById(req.params.orderID);
+        if(!order) return next(new AppError("No Order of this ID found.", 401))
+        if(order.shippingDetails.shipper!==req.user.id) return next(new AppError("You dont have the permission to perform this action", 401))
+        req.order=order;
+        return next()
+    }
+)
