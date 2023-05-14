@@ -1,3 +1,4 @@
+import { boolean } from 'joi';
 import mongoose from 'mongoose';
 
 export interface ProductObj{
@@ -17,7 +18,8 @@ export interface Delivery{
     receiverPhoneNumber:number;
     block:string;
     roomNumber:number;
-    deliveryInstructions:string
+    deliveryInstructions:string;
+    isDelivered:boolean
 }
 
 export interface OrderDocument extends mongoose.Document {
@@ -27,6 +29,7 @@ export interface OrderDocument extends mongoose.Document {
     priceDetails:PriceDetails;
     delivery:Delivery
     createdAt: Date;
+    isActive:boolean;
 }
 
 const orderSchema = new mongoose.Schema(
@@ -53,7 +56,15 @@ const orderSchema = new mongoose.Schema(
             receiverPhoneNumber:Number,
             block:String,
             roomNumber:Number,
-            deliveryInstructions:String
+            deliveryInstructions:String,
+            isDelivered:{
+                type:Boolean,
+                default:false
+            },
+        },
+        isActive:{
+            type:Boolean,
+            default:true
         },
         createdAt:{
             type:Date,
