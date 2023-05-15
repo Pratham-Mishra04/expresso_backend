@@ -1,87 +1,76 @@
-import { QueryOptions } from "mongoose";
+import { Query } from 'mongoose';
 
-class APIFeatures {
-  query:any;
-  queryStr:any;
-  constructor(query:any, queryStr:any) {
-    (this.query = query), (this.queryStr = queryStr);
-  }
+interface QueryString {
+    search?: string;
+    sort?: string;
+    fields?: string;
+    page?: number;
+    limit?: number;
+}
 
-  search() {
-    const search = this.queryStr.search
-      ? {
-          $or: [
-            {
-              title: {
-                $regex: this.queryStr.search,
-                $options: 'i',
-              },
-            },
-            {
-              tags: {
-                $all: {
-                  $regex: this.queryStr.search,
-                  $options: 'i',
-                },
-              },
-            },
-            {
-              category: {
-                $regex: this.queryStr.search,
-                $options: 'i',
-              },
-            },
-          ],
-        }
-      : {};
-    this.query = this.query.find(search);
-    return this;
-  }
+class APIFeatures<T> {
+    query: Query<T[], T>;
+    queryStr: QueryString;
 
-  filter() {
-    const queryObj = { ...this.queryStr };
-    const exlcudeFields = ['page', 'sort', 'limit', 'fields'];
-    exlcudeFields.forEach((item) => delete queryObj[item]);
+    constructor(query: Query<T[], T>, queryStr: QueryString) {
+        this.query = query;
+        this.queryStr = queryStr;
+    }
 
-    let queryString = JSON.stringify(queryObj);
-    queryString = queryString.replace(
-      /\b(gte|gt|lte|lt)\b/g,
-      (match) => `$${match}`
-    );
+    search() {
+        const search = this.queryStr.search
+            ? {
+                  $or: [],
+              }
+            : {};
+        this.query = this.query.find(search);
+        return this;
+    }
 
-    this.query = this.query.find(JSON.parse(queryString));
+    filter() {
+        const queryObj = { ...this.queryStr };
+        const exlcudeFields = ['page', 'sort', 'limit', 'fields'];
+        exlcudeFields.forEach((item) => delete queryObj[item]);
 
-    return this;
-  }
+        let queryString = JSON.stringify(queryObj);
+        queryString = queryString.replace(
+            /\b(gte|gt|lte|lt)\b/g,
+            (match) => `$${match}`
+        );
 
-  sort() {
-    if (this.queryStr.sort) {
-      const sortBy = this.queryStr.sort.replace(',', ' ');
-      this.query = this.query.sort(sortBy);
-    } else this.query = this.query.sort('createdAt');
+        this.query = this.query.find(JSON.parse(queryString));
 
-    return this;
-  }
+        return this;
+    }
 
-  fields() {
-    if (this.queryStr.fields) {
-      const fields = this.queryStr.fields.replace(',', ' ');
-      this.query = this.query.select(fields);
-    } else this.query = this.query.select('-__v');
+    sort() {
+        if (this.queryStr.sort) {
+            const sortBy = this.queryStr.sort.replace(',', ' ');
+            this.query = this.query.sort(sortBy);
+        } else this.query = this.query.sort('createdAt');
 
-    return this;
-  }
+        return this;
+    }
 
-  paginator() {
-    const page = this.queryStr.page * 1 || 1;
-    const limit = this.queryStr.limit * 1 || 10;
+    fields() {
+        if (this.queryStr.fields) {
+            const fields = this.queryStr.fields.replace(',', ' ');
+            this.query = this.query.select(fields);
+        } else this.query = this.query.select('-__v');
 
-    const skip = (page - 1) * limit;
+        return this;
+    }
 
-    this.query = this.query.skip(skip).limit(limit);
+    paginator() {
+        const page = this.queryStr.page * 1 || 1;
+        const limit = this.queryStr.limit * 1 || 10;
 
-    return this;
-  }
+        const skip = (page - 1) * limit;
+
+        this.query = this.query.skip(skip).limit(limit);
+
+        return this;
+    }
 }
 
 export default APIFeatures;
