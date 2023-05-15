@@ -12,6 +12,8 @@ import connectToDB from './managers/DB';
 import envHandler from './managers/envHandler';
 import consumerRouter from './routers/consumerRouter';
 import shipperRouter from './routers/shipperRouter';
+import messagingRouter from './routers/messagingRouter';
+import connectToSocket from './utils/connectToSocket';
 
 const app: Express = express();
 
@@ -28,9 +30,11 @@ if (envHandler('NODE_ENV') === 'dev') app.use(morgan('dev'));
 
 connectToDB();
 
-app.listen(envHandler('PORT'), () => {
+const server = app.listen(envHandler('PORT'), () => {
     console.log(`Server is running on http://127.0.0.1:${process.env.PORT}`);
 });
+
+connectToSocket(server)
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     req.requestedAt = new Date().toISOString();
@@ -40,6 +44,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/users', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/shipper', shipperRouter);
+app.use('/messaging', messagingRouter);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     next(new AppError(`Cannot find ${req.originalUrl}`, 404));

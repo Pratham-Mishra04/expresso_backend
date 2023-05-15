@@ -26,6 +26,7 @@
     "otp-generator": "^4.0.1",
     "sharp": "^0.30.7",
     "slugify": "^1.6.5",
+    "socket.io": "^4.6.1",
     "winston": "^3.8.2",
     "winston-transport": "^4.5.0"
   },
