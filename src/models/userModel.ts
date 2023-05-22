@@ -3,6 +3,7 @@ import * as bcrypt from 'bcryptjs';
 
 export interface UserInput {
     email: string;
+    regNo:string;
     name: string;
     password: string;
     profilePic: string;
@@ -30,11 +31,15 @@ const userSchema = new mongoose.Schema(
             trim: true,
             lowercase: true,
         },
+        regNo:{
+            type:String,
+            unique:true,
+            required:true
+        },
         profilePic: {
             type: String,
         },
         phoneNo: Number,
-        regNo: String,
         username: {
             type: String,
             unique: true,

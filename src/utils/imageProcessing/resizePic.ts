@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import slugify from 'slugify';
 import logger from '../../../logs/logger';
 import { NextFunction, Request, Response } from 'express';
+import User from '../../models/userModel';
 
 export const resizePic = async (
     picPath: string,
@@ -40,6 +41,15 @@ export const resizeUserPic = async (
     resizePic(picPath, toPath, 500, 500);
 
     req.body.profilePic = toPath.split('/')[3];
+
+    if (req.user) {
+        const user = await User.findById(req.user.id);
+
+        const picPath = `public/users/${req.file.fieldname}s/${user.profilePic}`;
+        if (user.profilePic !== 'default.jgp') {
+            fs.unlinkSync(picPath);
+        }
+    }
 
     next();
 };

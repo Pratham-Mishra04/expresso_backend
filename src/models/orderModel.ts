@@ -24,7 +24,7 @@ export interface Delivery {
 }
 
 export interface ShippingDetails {
-    shipper: mongoose.Schema.Types.ObjectId;
+    shipper: string;
     deliveryAcceptedAt: Date;
     OTP: string;
     optExpiration: Date;
@@ -77,10 +77,7 @@ const orderSchema = new mongoose.Schema(
             deliveredAt: Date,
         },
         shippingDetails: {
-            shipper: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-            },
+            shipper: String,
             deliveryAcceptedAt: Date,
             OTP: String,
             optExpiration: Date,
@@ -110,6 +107,7 @@ const orderSchema = new mongoose.Schema(
 );
 
 orderSchema.pre('save', async function (next) {
+    if(this.isNew) return next()
     if (!this.isModified('shippingDetails.OTP')) return next();
     this.shippingDetails.OTP = await bcrypt.hash(this.shippingDetails.OTP, 12);
     next();

@@ -6,10 +6,11 @@ import {
     getOrder,
 } from '../controllers/consumerController';
 import { userOrderProtect } from '../middlewares/accessMiddlewares';
+import { joiOrderCreateValidator } from '../validators/joiValidators/joiOrderValidator';
 
 const consumerRouter = express.Router();
 
-consumerRouter.route('/').post(protect, createOrder);
+consumerRouter.route('/').post(protect, joiOrderCreateValidator, createOrder);
 
 consumerRouter
     .route('/:orderID')
