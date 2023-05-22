@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import Order from '../models/orderModel';
 import AppError from '../managers/AppError';
 import * as otpGenerator from 'otp-generator';
+import envHandler from '../managers/envHandler';
 
 export const getOrders = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -89,7 +90,7 @@ export const sendOTP = catchAsync(
 
         order.shippingDetails.OTP = OTP;
         order.shippingDetails.optExpiration = new Date(
-            Date.now() + 10 * 60 * 60
+            Date.now() + Number(envHandler('OTP_EXPIRATION')) * 60 * 60
         ); //10 mins
 
         await order.save();
