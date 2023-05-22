@@ -10,6 +10,7 @@ export const getOrders = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            noOfOrders: orders.length,
             orders,
         });
     }
@@ -18,6 +19,11 @@ export const getOrders = catchAsync(
 export const acceptDelivery = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const order = await Order.findById(req.params.orderID);
+
+        if (order.isAccepted)
+            return next(new AppError('Order is already being Delivered', 400));
+
+        if(order.status>=0) return next(new AppError('Cannot perform this action', 400));
 
         order.isAccepted = true;
         order.shippingDetails.shipper = req.user.id;
@@ -38,6 +44,8 @@ export const confirmPickUp = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const order = await Order.findById(req.params.orderID);
 
+        if(order.status>=1) return next(new AppError('Cannot perform this action', 400));
+
         order.status = 1;
 
         await order.save();
@@ -53,6 +61,8 @@ export const confirmPickUp = catchAsync(
 export const confirmOTW = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const order = await Order.findById(req.params.orderID);
+
+        if(order.status>=2) return next(new AppError('Cannot perform this action', 400));
 
         order.status = 2;
 

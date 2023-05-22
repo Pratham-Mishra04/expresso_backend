@@ -24,7 +24,7 @@ export interface Delivery {
 }
 
 export interface ShippingDetails {
-    shipper: string;
+    shipper: mongoose.Schema.Types.ObjectId;
     deliveryAcceptedAt: Date;
     OTP: string;
     optExpiration: Date;
@@ -77,7 +77,10 @@ const orderSchema = new mongoose.Schema(
             deliveredAt: Date,
         },
         shippingDetails: {
-            shipper: String,
+            shipper: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            },
             deliveryAcceptedAt: Date,
             OTP: String,
             optExpiration: Date,

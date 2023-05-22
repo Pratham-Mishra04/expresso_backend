@@ -21,12 +21,7 @@ const joiOrderCreateSchema = Joi.object({
         totalAmount: Joi.number().required(),
     }),
     delivery: Joi.forbidden(),
-    shippingDetails: Joi.object({
-        shipper: Joi.string().required(),
-        deliveryAcceptedAt: Joi.forbidden(),
-        OTP: Joi.forbidden(),
-        optExpiration: Joi.forbidden(),
-    }),
+    shippingDetails: Joi.forbidden(),
     isActive: Joi.forbidden(),
     isAccepted: Joi.forbidden(),
     status: Joi.forbidden(),
