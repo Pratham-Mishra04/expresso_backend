@@ -70,19 +70,21 @@ export const sendOTP = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
         const order = await Order.findById(req.params.orderID);
 
-        order.shippingDetails.OTP = otpGenerator.generate(6, {
+        const OTP = otpGenerator.generate(6, {
             digits: true,
             lowerCaseAlphabets: false,
             upperCaseAlphabets: false,
             specialChars: false,
         });
+
+        order.shippingDetails.OTP = OTP;
         order.shippingDetails.optExpiration = new Date(
             Date.now() + 10 * 60 * 60
         ); //10 mins
 
         await order.save();
 
-        //send OTP
+        console.log(OTP); //send OTP
 
         res.status(200).json({
             status: 'success',

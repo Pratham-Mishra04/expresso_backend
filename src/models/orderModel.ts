@@ -95,7 +95,7 @@ const orderSchema = new mongoose.Schema(
         },
         status: {
             type: Number,
-            enum: [-1, 0, 1, 2, 3], // -1:notAccepted,  0: accepted, 1: pickedUp, 2:on the way, 3:delivered
+            enum: [-1, 0, 1, 2, 3], // -1:notAccepted,  0:accepted, 1: pickedUp, 2:on the way, 3:delivered
             default: -1,
         },
         createdAt: {

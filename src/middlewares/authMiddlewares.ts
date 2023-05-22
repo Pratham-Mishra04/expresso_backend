@@ -52,19 +52,6 @@ export const protect = catchAsync(async (req:Request, res:Response, next:NextFun
   next();
 });
 
-// export const restrictTo =
-//   (...roles:[string]) =>
-//   (req:Request, res:Response, next:NextFunction) => {
-//     if (!roles.includes(req.user.))
-//       return next(
-//         new AppError(
-//           'You do not have the permission to perform this action',
-//           403
-//         )
-//       );
-//     next();
-//   };
-
 export const adminOnly = (req:Request, res:Response, next:NextFunction) => {
   if (!req.user.admin)
     return next(
