@@ -67,7 +67,7 @@ export const getDoc = (Model) =>
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            data: doc,
+            doc,
         });
     });
 
@@ -113,7 +113,7 @@ export const updateDoc = (Model) =>
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            data: doc,
+            doc,
         });
     });
 

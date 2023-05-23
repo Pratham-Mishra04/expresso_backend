@@ -51,7 +51,7 @@ const getDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        data: doc,
+        doc,
     });
 });
 exports.getDoc = getDoc;
@@ -88,7 +88,7 @@ const updateDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) =>
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        data: doc,
+        doc,
     });
 });
 exports.updateDoc = updateDoc;

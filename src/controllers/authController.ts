@@ -25,7 +25,7 @@ export const createSendToken = (user:UserDocument, statusCode:number, res:Respon
   res.status(statusCode).json({
     status: 'success',
     token,
-    data:user
+    user
   });
 };
 

@@ -36,7 +36,6 @@ export const acceptDelivery = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            order,
         });
     }
 );
@@ -54,7 +53,6 @@ export const confirmPickUp = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            order,
         });
     }
 );
@@ -72,7 +70,6 @@ export const confirmOTW = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            order,
         });
     }
 );
@@ -100,7 +97,6 @@ export const sendOTP = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            order,
         });
     }
 );
@@ -125,7 +121,6 @@ export const verifyOTP = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
-            order,
         });
     }
 );

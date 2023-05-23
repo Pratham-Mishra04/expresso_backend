@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>API Documentation</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                color: #666;
+                margin-top: 40px;
+            }
+
+            p {
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            code {
+                font-family: Consolas, monospace;
+                background-color: #f2f2f2;
+                padding: 2px 4px;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            table td,
+            table th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            table th {
+                background-color: #f2f2f2;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>API Documentation</h1>
+
+        <h2>User Routes:</h2>
+        <p>Endpoints for user-related operations.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Description</th>
+                    <th>Request Method</th>
+                    <th>Protected</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/users/login</td>
+                    <td>User Login</td>
+                    <td>POST</td>
+                    <td>No</td>
+                    <td>
+                        Returns an access token upon successful login and also
+                        the user details. (<code>res.data.token</code>,
+                        <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/users/signup</td>
+                    <td>User Signup</td>
+                    <td>POST</td>
+                    <td>No</td>
+                    <td>
+                        Returns an access token upon successful signup and also
+                        the user details. (<code>res.data.token</code>,
+                        <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <!-- Include other user routes here -->
+            </tbody>
+        </table>
+
+        <h2>Consumer Routes:</h2>
+        <p>Endpoints for consumer-related operations.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Description</th>
+                    <th>Request Method</th>
+                    <th>Protected</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/consumer</td>
+                    <td>Create an Order</td>
+                    <td>POST</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns the created order details.
+                        (<code>res.data.order</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/consumer/{orderID}</td>
+                    <td>Get an Order</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns the order details. (<code>res.data.order</code>)
+                    </td>
+                </tr>
+                <!-- Include other consumer routes here -->
+            </tbody>
+        </table>
+
+        <h2>Shipper Routes:</h2>
+        <p>Endpoints for shipper-related operations.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Description</th>
+                    <th>Request Method</th>
+                    <th>Protected</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/shipper</td>
+                    <td>Get All Orders</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a list of orders. (<code>res.data.orders</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/shipper/accept/{orderID}</td>
+                    <td>Accept Delivery</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful acceptance.
+                    </td>
+                </tr>
+                <tr>
+                    <td>/shipper/pickUp/{orderID}</td>
+                    <td>Confirm Pick-up</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful confirmation.
+                    </td>
+                </tr>
+                <tr>
+                    <td>/shipper/otw/{orderID}</td>
+                    <td>Confirm On the Way</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful confirmation.
+                    </td>
+                </tr>
+                <tr>
+                    <td>/shipper/otp/{orderID}</td>
+                    <td>Send OTP</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful OTP
+                        generation.
+                    </td>
+                </tr>
+                <tr>
+                    <td>/shipper/otp/{orderID}</td>
+                    <td>Verify OTP</td>
+                    <td>POST</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful OTP
+                        verification.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h1>THINGS TO NOTE</h1>
+            <p>
+                - Ensure to include the Authorization header with a valid token
+                as "Bearer {token}" for authentication and authorization to
+                access the protected routes.
+            </p>
+            <p>
+                - On successful request, the response will have the field
+                "status" set to success i.e res.data.status = success.
+            </p>
+            <p>
+                - The following response status codes (can be accessed using
+                <code>res.status</code>) and the corresponding meanings -
+            </p>
+
+            <code>
+                <ul>
+                    <li>
+                        200 OK: The request was successful, and the response
+                        body contains the requested data.
+                    </li>
+                    <li>
+                        201 Created: The request was successful, and a new
+                        resource was created as a result
+                    </li>
+                    <li>
+                        204 No Content: The deletion requested for the data was
+                        successful.
+                    </li>
+                    <li>
+                        400 Bad Request: The request could not be understood or
+                        processed due to invalid syntax, missing parameters or
+                        validation errors.
+                    </li>
+                    <li>
+                        401 Unauthorized: The request requires authentication,
+                        and the token provided were either missing, invalid, or
+                        not in the correct format.
+                    </li>
+                    <li>
+                        404 Not Found: The requested resource could not be found
+                        on the server.
+                    </li>
+                    <li>
+                        500 Internal Server Error: An unexpected error occurred
+                        on the server while processing the request.
+                    </li>
+                </ul>
+            </code>
+        </div>
+    </body>
+</html>

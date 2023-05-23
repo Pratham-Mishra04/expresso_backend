@@ -41,6 +41,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
+app.use('/', (req, res)=>{
+    res.sendFile(path.join(__dirname, '/utils/documentation.html'))
+})
+
 app.use('/users', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/shipper', shipperRouter);

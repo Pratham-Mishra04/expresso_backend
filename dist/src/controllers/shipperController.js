@@ -29,7 +29,6 @@ exports.acceptDelivery = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        order,
     });
 });
 exports.confirmPickUp = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -41,7 +40,6 @@ exports.confirmPickUp = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        order,
     });
 });
 exports.confirmOTW = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -53,7 +51,6 @@ exports.confirmOTW = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        order,
     });
 });
 exports.sendOTP = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -71,7 +68,6 @@ exports.sendOTP = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        order,
     });
 });
 exports.verifyOTP = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -87,7 +83,6 @@ exports.verifyOTP = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
-        order,
     });
 });
 //# sourceMappingURL=shipperController.js.map
