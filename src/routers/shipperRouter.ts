@@ -12,26 +12,21 @@ import {
 
 const shipperRouter = express.Router();
 
-// shipperRouter.route('/').get(protect, getOrders);
-shipperRouter.route('/').get(getOrders);
+shipperRouter.route('/').get(protect, getOrders);
 
-// shipperRouter.get('/accept/:orderID', protect, acceptDelivery);
-shipperRouter.get('/accept/:orderID', acceptDelivery);
+shipperRouter.get('/accept/:orderID', protect, acceptDelivery);
 
 shipperRouter.get(
     '/pickUp/:orderID',
-    // protect,
+    protect,
     shipperOrderProtect,
     confirmPickUp
 );
-// shipperRouter.get('/otw/:orderID', protect, shipperOrderProtect, confirmOTW);
-shipperRouter.get('/otw/:orderID', confirmOTW);
+shipperRouter.get('/otw/:orderID', protect, shipperOrderProtect, confirmOTW);
 
 shipperRouter
     .route('/otp/:orderID')
-    .get(sendOTP)
-    .post(verifyOTP);
-    // .get(protect, shipperOrderProtect, sendOTP)
-    // .post(protect, shipperOrderProtect, verifyOTP);
+    .get(protect, shipperOrderProtect, sendOTP)
+    .post(protect, shipperOrderProtect, verifyOTP);
 
 export default shipperRouter;

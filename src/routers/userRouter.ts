@@ -26,21 +26,18 @@ userRouter.post(
     signup
 );
 
-// userRouter.patch('/updatePassword', protect, updatePassword);
-userRouter.patch('/updatePassword', updatePassword);
+userRouter.patch('/updatePassword', protect, updatePassword);
 
 userRouter
     .route('/:userID')
-    // .get(protect, getUser)
-    .get(getUser)
+    .get(protect, getUser)
     .patch(
-        // protect,
+        protect,
         userPicUploadParserer,
         joiUserUpdateValidator,
         resizeUserPic,
         updateUser
     )
-    .delete(deleteUser);
-    // .delete(protect, deleteUser);
+    .delete(protect, deleteUser);
 
 export default userRouter;
