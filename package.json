@@ -10,18 +10,21 @@
         "build": "rimraf dist && tsc",
         "add-build": "git add dist",
         "ts.check": "tsc --project tsconfig.json",
+        "copyfiles": "copyfiles src/**/*.html",
         "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
         "lint": "eslint --fix --ext .ts"
     },
     "pre-commit": [
         "ts.check",
         "build",
+        "copyfiles",
         "add-build"
     ],
     "author": "",
     "license": "ISC",
     "dependencies": {
         "bcryptjs": "^2.4.3",
+        "copyfiles": "^2.4.1",
         "cors": "^2.8.5",
         "dotenv": "^16.0.1",
         "express": "^4.18.1",
