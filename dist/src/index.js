@@ -32,9 +32,9 @@ app.use((req, res, next) => {
     req.requestedAt = new Date().toISOString();
     next();
 });
-app.use('/', (req, res) => {
+app.use('/', express.Router({ strict: true }).get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/utils/documentation.html'));
-});
+}));
 app.use('/users', userRouter_1.default);
 app.use('/consumer', consumerRouter_1.default);
 app.use('/shipper', shipperRouter_1.default);

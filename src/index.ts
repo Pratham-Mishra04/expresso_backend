@@ -41,14 +41,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-app.use('/', (req, res)=>{
+app.use('/', express.Router({strict:true}).get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, '/utils/documentation.html'))
-})
+}) )
 
 app.use('/users', userRouter);
 app.use('/consumer', consumerRouter);
 app.use('/shipper', shipperRouter);
 app.use('/messaging', messagingRouter);
+
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     next(new AppError(`Cannot find ${req.originalUrl}`, 404));

@@ -50,6 +50,8 @@
     <body>
         <h1>API Documentation</h1>
 
+        <code><h2>Check create and update schemas in  src/validators/joiValidators to get the REQUEST BODIES FORMAT.</h2></code>
+
         <h2>User Routes:</h2>
         <p>Endpoints for user-related operations.</p>
 
@@ -84,6 +86,45 @@
                         Returns an access token upon successful signup and also
                         the user details. (<code>res.data.token</code>,
                         <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/users/updatePassword</td>
+                    <td>Update Password</td>
+                    <td>PATCH</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns an access token upon successful updation of password and also the user details.  (<code>res.data.token, res.data.user</code>,
+                        <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/users/{userID}</td>
+                    <td>Get User</td>
+                    <td>GET</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns the user details.  (<code>res.data.doc</code>,
+                        <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/users/{userID}</td>
+                    <td>Update User</td>
+                    <td>PATCH</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns the user details.  (<code>res.data.doc</code>,
+                        <code>res.data.user</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/users/{userID}</td>
+                    <td>Delete User</td>
+                    <td>DELETE</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful user deletion.
                     </td>
                 </tr>
                 <!-- Include other user routes here -->
@@ -121,6 +162,15 @@
                     <td>Yes</td>
                     <td>
                         Returns the order details. (<code>res.data.order</code>)
+                    </td>
+                </tr>
+                <tr>
+                    <td>/consumer/{orderID}</td>
+                    <td>Delete an Order</td>
+                    <td>DELETE</td>
+                    <td>Yes</td>
+                    <td>
+                        Returns a success message upon successful deletion of the order.
                     </td>
                 </tr>
                 <!-- Include other consumer routes here -->
@@ -205,6 +255,9 @@
                 - Ensure to include the Authorization header with a valid token
                 as "Bearer {token}" for authentication and authorization to
                 access the protected routes.
+            </p>
+            <p>
+                - To get the complete idea of Request Bodies, checkout src/validators/joiValidators
             </p>
             <p>
                 - On successful request, the response will have the field
