@@ -116,6 +116,10 @@
 
 - Ensure to include the Authorization header with a valid token as "Bearer {token}" for authentication and authorization to access the protected routes.
 
+- Complete API Documentation on route '/'.
+
+- To get the complete idea of Request Bodies, checkout src/validators/joiValidators
+
 - On successful request, the response will have the field "status" set to success i.e res.data.status = success.
 
 - The following response status codes and the corresponding meanings - 
