@@ -35,6 +35,7 @@ const noURL = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
     if ((0, envHandler_1.default)('NODE_ENV') === 'dev') {
+        console.log(err);
         res.status(err.statusCode).json({
             status: err.status,
             error: err,

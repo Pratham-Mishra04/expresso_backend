@@ -24,6 +24,7 @@ export const deleteUser = catchAsync(
 
 export const updatePassword = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
+        if(req.body.password!=req.body.confirmPassword) return next(new AppError("Password do not match", 400))
         const user = await User.findById(req.user.id).select('+password');
         if (!(await user.correctPassword(req.body.password)))
             return next(

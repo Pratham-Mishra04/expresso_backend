@@ -18,6 +18,8 @@ exports.deleteUser = (0, catchAsync_1.default)(async (req, res, next) => {
     });
 });
 exports.updatePassword = (0, catchAsync_1.default)(async (req, res, next) => {
+    if (req.body.password != req.body.confirmPassword)
+        return next(new AppError_1.default("Password do not match", 400));
     const user = await userModel_1.default.findById(req.user.id).select('+password');
     if (!(await user.correctPassword(req.body.password)))
         return next(new AppError_1.default('Incorect Password, Please enter the corrent password', 401));
