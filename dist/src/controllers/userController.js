@@ -14,6 +14,7 @@ exports.deleteUser = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(204).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "User Deleted",
         data: null,
     });
 });
@@ -25,6 +26,6 @@ exports.updatePassword = (0, catchAsync_1.default)(async (req, res, next) => {
         return next(new AppError_1.default('Incorect Password, Please enter the corrent password', 401));
     user.password = req.body.newPassword;
     await user.save();
-    (0, authController_1.createSendToken)(user, 200, res);
+    (0, authController_1.createSendToken)(user, 200, res, "Password Updated");
 });
 //# sourceMappingURL=userController.js.map

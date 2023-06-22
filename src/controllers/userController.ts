@@ -17,6 +17,7 @@ export const deleteUser = catchAsync(
         res.status(204).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"User Deleted",
             data: null,
         });
     }
@@ -37,6 +38,6 @@ export const updatePassword = catchAsync(
         user.password = req.body.newPassword;
         await user.save();
 
-        createSendToken(user, 200, res);
+        createSendToken(user, 200, res, "Password Updated");
     }
 );

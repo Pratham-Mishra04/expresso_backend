@@ -9,6 +9,7 @@ exports.createOrder = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "New Order Created",
         order,
     });
 });
@@ -17,6 +18,7 @@ exports.getOrder = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Order Fetched",
         order,
     });
 });
@@ -24,6 +26,7 @@ exports.deleteOrder = (0, catchAsync_1.default)(async (req, res, next) => {
     await orderModel_1.default.findByIdAndDelete(req.order.id);
     res.status(204).json({
         status: 'success',
+        message: "Order Deleted",
         requestedAt: req.requestedAt,
     });
 });

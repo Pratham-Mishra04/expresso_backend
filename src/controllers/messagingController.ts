@@ -69,6 +69,7 @@ export const getChats = catchAsync(
             status: 'success',
             requestedAt: req.requestedAt,
             chats,
+            message:"Chats Fetched",
         });
     }
 );
@@ -110,6 +111,7 @@ export const getChat = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Chat Fetched",
             chat: chat,
             messages: messages,
         });
@@ -141,6 +143,7 @@ export const newChat = catchAsync(
             res.status(201).json({
                 status: 'success',
                 requestedAt: req.requestedAt,
+                message:"New Chat Created",
                 chat,
             });
         }
@@ -160,6 +163,7 @@ export const deleteChat = catchAsync(
         res.status(204).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Chat Deleted",
         });
     }
 );

@@ -6,7 +6,7 @@ const userModel_1 = require("../models/userModel");
 const AppError_1 = require("../managers/AppError");
 const catchAsync_1 = require("../managers/catchAsync");
 const envHandler_1 = require("../managers/envHandler");
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, res, message) => {
     const token = jwt.sign({ id: user._id }, (0, envHandler_1.default)('JWT_KEY'), {
         expiresIn: Number((0, envHandler_1.default)('JWT_TIME')) * 24 * 60,
     });
@@ -21,6 +21,7 @@ const createSendToken = (user, statusCode, res) => {
     res.cookie('token', token, cookieSettings);
     res.status(statusCode).json({
         status: 'success',
+        message,
         token,
         user
     });
@@ -28,7 +29,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.createSendToken = createSendToken;
 exports.signup = (0, catchAsync_1.default)(async (req, res, next) => {
     const newUser = await userModel_1.default.create(req.body);
-    (0, exports.createSendToken)(newUser, 201, res);
+    (0, exports.createSendToken)(newUser, 201, res, "New Account Created");
 });
 exports.login = (0, catchAsync_1.default)(async (req, res, next) => {
     const { email, password } = req.body;
@@ -37,7 +38,7 @@ exports.login = (0, catchAsync_1.default)(async (req, res, next) => {
     const user = await userModel_1.default.findOne({ email }).select('+password');
     if (!user || !(await user.correctPassword(password)))
         throw new AppError_1.default('Incorrect Email or Password', 400);
-    (0, exports.createSendToken)(user, 200, res);
+    (0, exports.createSendToken)(user, 200, res, "Logged In");
 });
 exports.logout = (0, catchAsync_1.default)(async (req, res, next) => {
     res.cookie('jwt', 'loggedout', {

@@ -11,6 +11,7 @@ export const getOrders = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Orders Fetched",
             noOfOrders: orders.length,
             orders,
         });
@@ -36,6 +37,7 @@ export const acceptDelivery = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Order Delivery Accepted",
         });
     }
 );
@@ -53,6 +55,7 @@ export const confirmPickUp = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Order Picked Up",
         });
     }
 );
@@ -70,6 +73,7 @@ export const confirmOTW = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Order OTW",
         });
     }
 );
@@ -97,6 +101,7 @@ export const sendOTP = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"OTP Sent",
         });
     }
 );
@@ -121,6 +126,7 @@ export const verifyOTP = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"OTP Verified",
         });
     }
 );

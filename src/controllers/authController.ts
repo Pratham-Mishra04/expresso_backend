@@ -5,7 +5,7 @@ import catchAsync from '../managers/catchAsync';
 import envHandler from '../managers/envHandler';
 import { Response, Request, NextFunction } from 'express';
 
-export const createSendToken = (user:UserDocument, statusCode:number, res:Response) => {
+export const createSendToken = (user:UserDocument, statusCode:number, res:Response, message:string) => {
   const token = jwt.sign({ id: user._id }, envHandler('JWT_KEY'), {
     expiresIn: Number(envHandler('JWT_TIME')) * 24 * 60,
   });
@@ -24,6 +24,7 @@ export const createSendToken = (user:UserDocument, statusCode:number, res:Respon
   res.cookie('token', token, cookieSettings);
   res.status(statusCode).json({
     status: 'success',
+    message,
     token,
     user
   });
@@ -31,7 +32,7 @@ export const createSendToken = (user:UserDocument, statusCode:number, res:Respon
 
 export const signup = catchAsync(async (req:Request, res:Response, next:NextFunction) => {
   const newUser = await User.create(req.body);
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 201, res, "New Account Created");
 });
 
 export const login = catchAsync(async (req:Request, res:Response, next:NextFunction) => {
@@ -41,7 +42,7 @@ export const login = catchAsync(async (req:Request, res:Response, next:NextFunct
   const user = await User.findOne({ email }).select('+password');
   if (!user || !(await user.correctPassword(password)))
     throw new AppError('Incorrect Email or Password', 400);
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, res, "Logged In");
 });
 
 export const logout = catchAsync(async (req:Request, res:Response, next:NextFunction) => {

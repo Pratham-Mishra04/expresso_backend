@@ -11,6 +11,7 @@ const getAllDocs = (Model) => (0, catchAsync_1.default)(async (req, res, next) =
     const docs = await features.query;
     res.status(200).json({
         status: 'success',
+        message: "Docs Fetched",
         results: docs.length,
         requestedAt: req.requestedAt,
         data: docs,
@@ -23,6 +24,7 @@ const getAllDocsByQuery = (Model, query) => (0, catchAsync_1.default)(async (req
     const docs = await features.query;
     res.status(200).json({
         status: 'success',
+        message: "Docs Fetched",
         results: docs.length,
         requestedAt: req.requestedAt,
         data: docs,
@@ -36,6 +38,7 @@ const getAllDocsByUser = (Model) => (0, catchAsync_1.default)(async (req, res, n
     const docs = await features.query;
     res.status(200).json({
         status: 'success',
+        message: "Docs Fetched",
         results: docs.length,
         requestedAt: req.requestedAt,
         data: docs,
@@ -51,6 +54,7 @@ const getDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Doc Fetched",
         doc,
     });
 });
@@ -65,6 +69,7 @@ const addDocByUser = (Model) => (0, catchAsync_1.default)(async (req, res, next)
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Doc Created",
         data: doc,
     });
 });
@@ -74,6 +79,7 @@ const createDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) =>
     res.status(201).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Doc Created",
         data: doc,
     });
 });
@@ -88,6 +94,7 @@ const updateDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) =>
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Doc Updated",
         doc,
     });
 });
@@ -97,6 +104,7 @@ const deleteDoc = (Model) => (0, catchAsync_1.default)(async (req, res, next) =>
     res.status(204).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Doc Deleted",
         data: null,
     });
 });

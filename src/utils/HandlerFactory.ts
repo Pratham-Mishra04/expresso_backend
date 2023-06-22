@@ -14,6 +14,7 @@ export const getAllDocs = (Model) =>
 
         res.status(200).json({
             status: 'success',
+            message:"Docs Fetched",
             results: docs.length,
             requestedAt: req.requestedAt,
             data: docs,
@@ -30,6 +31,7 @@ export const getAllDocsByQuery = (Model, query) =>
 
         res.status(200).json({
             status: 'success',
+            message:"Docs Fetched",
             results: docs.length,
             requestedAt: req.requestedAt,
             data: docs,
@@ -50,6 +52,7 @@ export const getAllDocsByUser = (Model) =>
 
         res.status(200).json({
             status: 'success',
+            message:"Docs Fetched",
             results: docs.length,
             requestedAt: req.requestedAt,
             data: docs,
@@ -67,6 +70,7 @@ export const getDoc = (Model) =>
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Doc Fetched",
             doc,
         });
     });
@@ -82,6 +86,7 @@ export const addDocByUser = (Model) =>
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Doc Created",
             data: doc,
         });
     });
@@ -92,6 +97,7 @@ export const createDoc = (Model) =>
         res.status(201).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Doc Created",
             data: doc,
         });
     });
@@ -113,6 +119,7 @@ export const updateDoc = (Model) =>
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Doc Updated",
             doc,
         });
     });
@@ -123,6 +130,7 @@ export const deleteDoc = (Model) =>
         res.status(204).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Doc Deleted",
             data: null,
         });
     });

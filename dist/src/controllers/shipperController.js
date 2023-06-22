@@ -11,6 +11,7 @@ exports.getOrders = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Orders Fetched",
         noOfOrders: orders.length,
         orders,
     });
@@ -29,6 +30,7 @@ exports.acceptDelivery = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Order Delivery Accepted",
     });
 });
 exports.confirmPickUp = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -40,6 +42,7 @@ exports.confirmPickUp = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Order Picked Up",
     });
 });
 exports.confirmOTW = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -51,6 +54,7 @@ exports.confirmOTW = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Order OTW",
     });
 });
 exports.sendOTP = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -68,6 +72,7 @@ exports.sendOTP = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "OTP Sent",
     });
 });
 exports.verifyOTP = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -83,6 +88,7 @@ exports.verifyOTP = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "OTP Verified",
     });
 });
 //# sourceMappingURL=shipperController.js.map

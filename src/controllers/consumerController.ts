@@ -9,6 +9,7 @@ export const createOrder = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"New Order Created",
             order,
         });
     }
@@ -20,6 +21,7 @@ export const getOrder = catchAsync(
         res.status(200).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message:"Order Fetched",
             order,
         });
     }
@@ -30,6 +32,7 @@ export const deleteOrder = catchAsync(
         await Order.findByIdAndDelete(req.order.id)
         res.status(204).json({
             status: 'success',
+            message:"Order Deleted",
             requestedAt: req.requestedAt,
         });
     }

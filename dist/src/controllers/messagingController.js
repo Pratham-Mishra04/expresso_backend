@@ -57,6 +57,7 @@ exports.getChats = (0, catchAsync_1.default)(async (req, res, next) => {
         status: 'success',
         requestedAt: req.requestedAt,
         chats,
+        message: "Chats Fetched",
     });
 });
 exports.getChat = (0, catchAsync_1.default)(async (req, res, next) => {
@@ -93,6 +94,7 @@ exports.getChat = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(200).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Chat Fetched",
         chat: chat,
         messages: messages,
     });
@@ -121,6 +123,7 @@ exports.newChat = (0, catchAsync_1.default)(async (req, res, next) => {
         res.status(201).json({
             status: 'success',
             requestedAt: req.requestedAt,
+            message: "New Chat Created",
             chat,
         });
     }
@@ -134,6 +137,7 @@ exports.deleteChat = (0, catchAsync_1.default)(async (req, res, next) => {
     res.status(204).json({
         status: 'success',
         requestedAt: req.requestedAt,
+        message: "Chat Deleted",
     });
 });
 //# sourceMappingURL=messagingController.js.map
