@@ -12,15 +12,15 @@ const connectToSocket = (server) =>{
     io.on('connection', (socket) => {
         console.log('connection established');
     
-        socket.on('joinChat', (chatID) => {
+        socket.on('join_chat', (chatID) => {
             socket.join(chatID);
             console.log(socket.id+' joined Chat: ' + chatID);
         });
     
-        socket.on('newMessage', async (message) => {
-            console.log("new Messgae Recieved. Broadcasting it in Room: "+message.chat)
+        socket.on('new_message', async (message) => {
+            console.log("new Message Recieved. Broadcasting it in Room: "+message.chat)
             const chat = await Chat.findById(message.chat);
-            socket.to(chat.id).emit('messageReceived', message);
+            socket.to(chat.id).emit('message_received', message);
         });
     });
 }
