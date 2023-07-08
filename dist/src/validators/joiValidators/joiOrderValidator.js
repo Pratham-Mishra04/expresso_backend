@@ -21,7 +21,7 @@ const joiOrderCreateSchema = Joi.object({
     }),
     delivery: Joi.object({
         receiverName: Joi.string().required(),
-        receiverPhoneNumber: Joi.number().custom((value, helper) => {
+        receiverPhoneNumber: Joi.string().custom((value, helper) => {
             if (!(0, libphonenumber_js_1.isValidNumber)(value))
                 return helper.message('Enter a valid phone number');
         }).required(),

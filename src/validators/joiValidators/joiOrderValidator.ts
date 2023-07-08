@@ -23,7 +23,7 @@ const joiOrderCreateSchema = Joi.object({
     }),
     delivery: Joi.object({
         receiverName: Joi.string().required(),
-        receiverPhoneNumber: Joi.number().custom((value, helper) => {
+        receiverPhoneNumber: Joi.string().custom((value, helper) => {
             if (!isValidNumber(value))
                 return helper.message(
                     <Joi.LanguageMessages>(
