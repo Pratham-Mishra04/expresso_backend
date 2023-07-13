@@ -11,6 +11,7 @@ const joiOrderCreateSchema = Joi.object({
             Joi.object({
                 productName: Joi.string().required(),
                 productPrice: Joi.number().required(),
+                productQuantity:Joi.number().required(),
             })
         )
         .required(),
@@ -22,6 +23,7 @@ const joiOrderCreateSchema = Joi.object({
         totalAmount: Joi.number().required(),
     }),
     delivery: Joi.object({
+        outsideDelivery:Joi.boolean().required(),
         receiverName: Joi.string().required(),
         receiverPhoneNumber: Joi.string().custom((value, helper) => {
             if (!isValidNumber(value))

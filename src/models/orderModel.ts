@@ -4,6 +4,7 @@ import * as bcrypt from 'bcryptjs';
 export interface ProductObj {
     productName: string;
     productPrice: number;
+    productQuantity:number;
 }
 
 export interface PriceDetails {
@@ -14,6 +15,7 @@ export interface PriceDetails {
 }
 
 export interface Delivery {
+    outsideDelivery:boolean;
     receiverName: string;
     receiverPhoneNumber: number;
     block: string;
@@ -42,7 +44,7 @@ export interface OrderDocument extends mongoose.Document {
     isAccepted: boolean;
     status: number;
     isCorrectOTP(inOTP: string): Promise<boolean>;
-    isOTPExpired(timestrap:number):boolean
+    isOTPExpired(timestamp:number):boolean
 }
 
 const orderSchema = new mongoose.Schema(
@@ -55,6 +57,7 @@ const orderSchema = new mongoose.Schema(
             {
                 productName: String,
                 productPrice: Number,
+                productQuantity:Number,
             },
         ],
         instructions: String,
@@ -65,6 +68,7 @@ const orderSchema = new mongoose.Schema(
             totalAmount: Number,
         },
         delivery: {
+            outsideDelivery:Boolean,
             receiverName: String,
             receiverPhoneNumber: Number,
             block: String,
@@ -123,11 +127,11 @@ orderSchema.methods.isCorrectOTP = async function (
     return await bcrypt.compare(inOTP, order.shippingDetails.OTP);
 };
 
-orderSchema.methods.isOTPExpired = function (timestrap: number): boolean {
+orderSchema.methods.isOTPExpired = function (timestamp: number): boolean {
     const order = this as OrderDocument;
-    const OTPTimestrap: number =
+    const OTPTimestamp: number =
         Number(order.shippingDetails.optExpiration.getTime()) / 1000;
-    return timestrap > OTPTimestrap;
+    return timestamp > OTPTimestamp;
 };
 
 const Order = mongoose.model<OrderDocument>('Order', orderSchema);

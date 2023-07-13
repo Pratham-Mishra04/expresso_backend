@@ -11,6 +11,7 @@ const orderSchema = new mongoose_1.default.Schema({
         {
             productName: String,
             productPrice: Number,
+            productQuantity: Number,
         },
     ],
     instructions: String,
@@ -21,6 +22,7 @@ const orderSchema = new mongoose_1.default.Schema({
         totalAmount: Number,
     },
     delivery: {
+        outsideDelivery: Boolean,
         receiverName: String,
         receiverPhoneNumber: Number,
         block: String,
@@ -74,10 +76,10 @@ orderSchema.methods.isCorrectOTP = async function (inOTP) {
     const order = this;
     return await bcrypt.compare(inOTP, order.shippingDetails.OTP);
 };
-orderSchema.methods.isOTPExpired = function (timestrap) {
+orderSchema.methods.isOTPExpired = function (timestamp) {
     const order = this;
-    const OTPTimestrap = Number(order.shippingDetails.optExpiration.getTime()) / 1000;
-    return timestrap > OTPTimestrap;
+    const OTPTimestamp = Number(order.shippingDetails.optExpiration.getTime()) / 1000;
+    return timestamp > OTPTimestamp;
 };
 const Order = mongoose_1.default.model('Order', orderSchema);
 exports.default = Order;
